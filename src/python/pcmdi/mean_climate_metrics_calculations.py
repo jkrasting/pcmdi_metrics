@@ -1,7 +1,15 @@
 import cdms2 as cdms
 import pcmdi_metrics
+import collections
 
 def compute_metrics(var,dm_glb,do_glb):
+    ## Did we send data? Or do we just want the info?
+    if dm_glb is None and do_glb is None:
+      metrics_defs = collections.OrderedDict()
+      metrics_def["rms_xyt"] = pcmdi_metrics.pcmdi.rms_xyt.compute(None, None)
+      metrics_def["cor_xyt"] = pcmdi_metrics.pcmdi.cor_xyt.compute(None, None)
+      metrics_def["bias_xy"] = pcmdi_metrics.pcmdi.bias_xy.compute(None, None)
+      return metrics_defs
     cdms.setAutoBounds('on')
     metrics_dictionary = {}
     
